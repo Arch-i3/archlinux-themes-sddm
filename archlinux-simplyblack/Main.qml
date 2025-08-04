@@ -283,3 +283,32 @@ Rectangle {
             password.focus = true
     }
 }
+
+Rectangle {
+    id: statusBar
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    height: 40
+    color: "#222222"
+
+    Text {
+        id: statusText
+        anchors.centerIn: parent
+        color: "white"
+        font.pixelSize: 16
+        text: "Betöltés..."
+    }
+
+    Timer {
+        interval: 2000
+        running: true
+        repeat: true
+        onTriggered: {
+            var proc = Qt.createQmlObject('import QtQuick 2.0; QtObject { Component.onCompleted: { var p = Qt.createQmlObject("import QtQuick 2.0; QtObject {}", statusBar); } }', statusBar);
+            var cmd = "bash -c \"i3status | head -n 1\"";
+            var result = system(cmd); // Ez nem működik natívan, lásd alább
+            statusText.text = result;
+        }
+    }
+}
