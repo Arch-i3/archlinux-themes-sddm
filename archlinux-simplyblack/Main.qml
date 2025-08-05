@@ -307,7 +307,7 @@ Rectangle {
             repeat: true
             onTriggered: {
                 var xhr = new XMLHttpRequest();
-                xhr.open("GET", "file:///tmp/i3status.txt");
+                xhr.open("GET", "file://usr/share/sddm/theme/i3status-theme/i3status.txt");
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === XMLHttpRequest.DONE) {
                         statusText.text = xhr.responseText.trim();
@@ -317,5 +317,4 @@ Rectangle {
             }
         }
     }
-    // === i3status blokk vége ===
 
