@@ -284,3 +284,38 @@ Rectangle {
     }
 }
 
+    // === i3status alsó sáv – hozzáadva ===
+    Rectangle {
+        id: statusBar
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        height: 40
+        color: "#000000"
+
+        Text {
+            id: statusText
+            anchors.centerIn: parent
+            color: "white"
+            font.pixelSize: 16
+            text: "Betöltés..."
+        }
+
+        Timer {
+            interval: 2000
+            running: true
+            repeat: true
+            onTriggered: {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "file:///tmp/i3status.txt");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        statusText.text = xhr.responseText.trim();
+                    }
+                }
+                xhr.send();
+            }
+        }
+    }
+    // === i3status blokk vége ===
+
